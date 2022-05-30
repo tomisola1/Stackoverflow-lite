@@ -20,7 +20,20 @@ const loginUser = async(req, res) => {
     }
 }
 
+const logoutUser = async(req, res) => {
+    try {
+        req.user.token = req.user.token.filter((token) => {
+            return token.token !== req.token;
+        });
+        await req.user.save();
+        res.send('Logged out')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 };

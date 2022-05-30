@@ -4,7 +4,7 @@ const secret = process.env.JWT_SECRET;
 
 const auth = async(req, res, next) => {
     try {
-       const token = req.headers.authorization;
+       const token = req.headers.authorization.split(' ')[1];
        if(!token){
           return res.status(401).send('Unauthorized user')
        }
@@ -12,11 +12,11 @@ const auth = async(req, res, next) => {
        if(!verifiedUser){
           return res.status(401).send(error)
        }
-       return res.send("Successfully verified")
+       res.send("Successfully verified")
+       return next();
     } catch (error) {
         console.log(error);
     }
-    return next();
 }
 
 module.exports = auth;
