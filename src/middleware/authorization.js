@@ -6,14 +6,17 @@ const auth = async(req, res, next) => {
     try {
        const token = req.headers.authorization.split(' ')[1];
        if(!token){
-          return res.status(401).send('Unauthorized user')
+          res.status(401).send('Unauthorized user')
        }
-       const verifiedUser = jwt.verify(token, secret);
-       if(!verifiedUser){
-          return res.status(401).send(error)
+       if(token){
+         jwt.verify(token, secret, (error, decoded) => {
+         if (error) {
+             return res.status(401).send('The Token provided is invalid')
+             }
+             req.user = decoded;
+         })
        }
-       res.send("Successfully verified")
-       return next();
+       next();
     } catch (error) {
         console.log(error);
     }

@@ -1,12 +1,13 @@
 const model = require("../../models")
 
-const createQuestion = async(body) => {
+const createQuestion = async(body, id) => {
     try {
         const {title, description, tags} = body
         const newQuestion = {
             title,
             description,
-            tags
+            tags,
+            UserId:id
         }
         const data = await model.Question.create(newQuestion)
         return {
@@ -30,10 +31,11 @@ const getAllQuestions = async(body) =>{
     }
 }
 
-const getSpecificQuestion = async(params) =>{
+const getSpecificQuestion = async(params, userId) =>{
     try {
-        const id = params
-        const question = await model.Question.findByPk(id)
+        const questionId = params
+        const owner = userId
+        const question = await model.Question.findOne({where:{id:questionId, UserId:owner}})
         if(!question){
            return 'Question not found'
         }
@@ -46,10 +48,11 @@ const getSpecificQuestion = async(params) =>{
     }
 }
 
-const updateQuestions = async(params, body) =>{
+const updateQuestions = async(params, body, userId) =>{
     try {
-        const id = params
-        const foundQuestion = await model.Question.findByPk(id)
+        const questionId = params
+        const owner = userId
+        const foundQuestion = await model.Question.findOne({where:{id:questionId, UserId:owner}})
         if(!foundQuestion){
             return 'Question not found'
         }
@@ -69,10 +72,11 @@ const updateQuestions = async(params, body) =>{
     }
 }
 
-const deleteQuestion = async(params) =>{
+const deleteQuestion = async(params, userId) =>{
     try {
-        const id = params
-        const foundQuestion = await model.Question.findByPk(id)
+        const questionId = params
+        const owner = userId
+        const foundQuestion = await model.Question.findOne({where:{id:questionId, UserId:owner}})
         if(!foundQuestion){
             return 'Question not found'
         }

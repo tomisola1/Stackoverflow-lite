@@ -1,23 +1,35 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Questions', {
+    await queryInterface.createTable('Answers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      text: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      accepted: {
+        type: Sequelize.BOOLEAN,
+        default: false
       },
-      tags: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
+      upvote: {
+        type: Sequelize.INTEGER,
+        default: 0
+      },
+      downvote: {
+        type: Sequelize.INTEGER,
+        default: 0
+      },
+      QuestionId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Questions",
+          key:"id"
+        },
       },
       UserId: {
         type: Sequelize.INTEGER,
@@ -37,6 +49,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Questions');
+    await queryInterface.dropTable('Answers');
   }
 };

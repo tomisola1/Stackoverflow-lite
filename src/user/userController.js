@@ -15,6 +15,7 @@ const loginUser = async(req, res) => {
         const payload = req.body
         const User = await login(payload)
         res.status(200).json(User)
+        return
     } catch (error) {
         console.log(error);
     }
