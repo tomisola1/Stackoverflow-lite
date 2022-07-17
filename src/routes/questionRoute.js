@@ -1,11 +1,12 @@
 const express = require('express');
-const {createAnswer, acceptAnswer, updateOrAcceptAnswer} = require('../answers/answersController');
+const {createAnswer, updateOrAcceptAnswer} = require('../answers/answersController');
 const auth = require('../middleware/authorization');
-const {createQuestions,getQuestions, getAQuestion, updateAQuestions, deleteAQuestions} = require('../questions/questionsController');
+const {createQuestions,getQuestions, getAQuestion, updateAQuestions, deleteAQuestions, getQuestionsOfAUser} = require('../questions/questionsController');
 const route = express.Router()
 
 route.post('/', auth, createQuestions)
-route.get('/', auth, getQuestions)
+route.get('/', getQuestions)
+route.get('/questions', auth, getQuestionsOfAUser)
 route.get('/:id', auth, getAQuestion)
 route.put('/:id/edit', auth, updateAQuestions)
 route.delete('/:id/delete', auth, deleteAQuestions)

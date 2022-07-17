@@ -16,11 +16,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         default: false
       },
-      upvote: {
-        type: Sequelize.INTEGER,
-        default: 0
-      },
-      downvote: {
+      vote: {
         type: Sequelize.INTEGER,
         default: 0
       },

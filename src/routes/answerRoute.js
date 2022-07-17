@@ -1,8 +1,9 @@
 const express = require('express');
-const createAnswer = require('../answers/answersController');
+const { upvoteAnswers, downvoteAnswers } = require('../answers/answersController');
 
 const route = express.Router()
 
-// route.post('/answer/question/:id', createAnswer)
+route.get('/answer/:answerid/upvote', upvoteAnswers)
+route.get('/answer/:answerid/downvote', downvoteAnswers)
 
 module.exports = route;

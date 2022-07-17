@@ -13,6 +13,7 @@ app.use(cookieParser());
 
 app.use('/user', userRoute)
 app.use('/question', questionRoute)
+app.use('/', answerRoute)
 
 const port = process.env.PORT || '6000';
 app.listen(port, () =>{

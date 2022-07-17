@@ -22,11 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.BOOLEAN,
       defaultValue: false
     },
-    upvote: {
-      type:DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    downvote: {
+    vote: {
       type:DataTypes.INTEGER,
       defaultValue: 0,
     },

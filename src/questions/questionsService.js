@@ -31,6 +31,19 @@ const getAllQuestions = async(body) =>{
     }
 }
 
+const getAllQuestionsOfAUser = async(id) =>{
+    try {
+        const owner = id
+        const Questions = await model.Question.findAll({where:{UserId: owner}})
+        return {
+            message: 'All questions',
+            data:Questions
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getSpecificQuestion = async(params, userId) =>{
     try {
         const questionId = params
@@ -93,6 +106,7 @@ const deleteQuestion = async(params, userId) =>{
 module.exports = {
     createQuestion,
     getAllQuestions,
+    getAllQuestionsOfAUser,
     getSpecificQuestion,
     updateQuestions,
     deleteQuestion

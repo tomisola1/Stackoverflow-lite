@@ -1,4 +1,4 @@
-const {createQuestion, getAllQuestions, getSpecificQuestion, updateQuestions, deleteQuestion} = require("./questionsService")
+const {createQuestion, getAllQuestions, getSpecificQuestion, updateQuestions, deleteQuestion, getAllQuestionsOfAUser} = require("./questionsService")
 
 const createQuestions = async(req, res) => {
     try {
@@ -16,6 +16,17 @@ const getQuestions = async(req, res) =>{
     try {
         const Questions = await getAllQuestions()
         res.status(200).json(Questions)
+        return
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getQuestionsOfAUser = async(req, res) =>{
+    try {
+        const {id} = req.user
+        const questions = await getAllQuestionsOfAUser(id)
+        res.status(200).json(questions)
         return
     } catch (error) {
         console.log(error)
@@ -62,6 +73,7 @@ const deleteAQuestions = async(req, res) =>{
 module.exports = {
     createQuestions,
     getQuestions,
+    getQuestionsOfAUser,
     getAQuestion,
     updateAQuestions,
     deleteAQuestions
